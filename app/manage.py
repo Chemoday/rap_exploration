@@ -1,17 +1,10 @@
 #!/usr/bin/env python
 import os
-from test_app.app import create_app
+from app import create_app
 from flask_script import Manager, Shell
 
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
-manager = Manager(app)
-#migrate = Migrate(app, db)
-
-
-#manager.add_command("shell", Shell(make_context=make_shell_context))
-#manager.add_command('db', MigrateCommand)
-
+manager = Manager(create_app)
 
 @manager.command
 def test():
@@ -19,6 +12,17 @@ def test():
     import unittest
     tests = unittest.TestLoader().discover('tests')
     unittest.TextTestRunner(verbosity=2).run(tests)
+
+@manager.command
+def generate_db():
+    from app import db
+    from app.config import DevelopmentConfig
+    db.initialize(DevelopmentConfig.DATABASE)
+    from app.database.models import MODELS_LIST
+    db.create_tables(MODELS_LIST, safe=True)
+    print("Db tables created")
+
+manager.add_option('-c', '--config', dest='config_name', required=False)
 
 
 if __name__ == '__main__':

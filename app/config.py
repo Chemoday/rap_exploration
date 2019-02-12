@@ -14,10 +14,14 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = False
-    DATABASE = {
-        'name': 'test.db',
-        'engine': 'peewee.SqliteDatabase'
-    }
+    # DATABASE = {
+    #     'name': 'test.db',
+    #     'engine': 'peewee.SqliteDatabase'
+    # }
+    # project_folder = os.getcwd()
+    DATABASE = SqliteDatabase('test.db')
+
+
 
 class TestingConfig(Config):
     TESTING = True
@@ -27,7 +31,7 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     pass
 
-config = {
+config_select = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
     'production': ProductionConfig,

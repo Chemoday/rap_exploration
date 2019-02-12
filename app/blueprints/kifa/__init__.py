@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-analytics = Blueprint('kifa', __name__, url_prefix='/kifa')
+kifa_bp = Blueprint('kifa', __name__, url_prefix='/kifa')
 
-from . import views
+# from . import views

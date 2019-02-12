@@ -1,22 +1,21 @@
 from flask import render_template, session, redirect, url_for, current_app
-from .. import db
 
 from . import main_bp
 from .forms import NameForm
 
-from ..models import User
+from app.database.models import *
 
 
 @main_bp.route('/', methods=['GET', 'POST'])
 def index():
     form = NameForm()
     if form.validate_on_submit():
-        try:
+        if User.select(User.username == form.name.data).exists():
             User.get(User.username == form.name.data)
             session['known'] = True
-        except User.DoesNotExist:
+        else:
             User.create(username=form.name.data)
-            session['known'] = False
+
 
         session['name'] = form.name.data
         return redirect(url_for('main.index'))

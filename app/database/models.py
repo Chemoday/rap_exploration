@@ -1,8 +1,13 @@
-from . import db
+from app import db
 from peewee import *
 
 
-class Role(db.Model):
+class BaseModel(Model):
+
+    class Meta:
+        database = db
+
+class Role(BaseModel):
     id = PrimaryKeyField()
     name = CharField(max_length=64, unique=True)
 
@@ -10,7 +15,7 @@ class Role(db.Model):
         db_table = 'roles'
 
 
-class User(db.Model):
+class User(BaseModel):
     id = PrimaryKeyField()
     username = CharField(max_length=64, unique=True,
                                 index=True)
@@ -21,3 +26,5 @@ class User(db.Model):
 
     class Meta:
         db_table = 'users'
+
+MODELS_LIST = [User]
