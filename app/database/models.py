@@ -27,4 +27,18 @@ class User(BaseModel):
     class Meta:
         db_table = 'users'
 
-MODELS_LIST = [User]
+class Assessment(BaseModel):
+    id = PrimaryKeyField()
+    doc_id = IntegerField(index=True)
+    square_id = IntegerField()
+    square_text = TextField()
+    label_0 = IntegerField(null=True)
+    label_1 = IntegerField(null=True)
+    label_2 = IntegerField(null=True)
+    label_3 = IntegerField(null=True)
+    label_4 = IntegerField(null=True)
+    label_5 = IntegerField(null=True)
+    rated = BooleanField(default=False)
+
+
+MODELS_LIST = [User, Assessment]
