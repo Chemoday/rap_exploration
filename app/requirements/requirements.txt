@@ -4,9 +4,9 @@ dominate
 Flask
 Flask-Bootstrap
 Flask-Moment
-flask-peewee
 Flask-Script
 Flask-WTF
+flask-peewee
 itsdangerous
 jedi
 Jinja2
